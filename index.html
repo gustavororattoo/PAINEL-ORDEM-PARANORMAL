@@ -99,6 +99,9 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+            width: 100%;
+            max-width: 900px;
+            box-sizing: border-box;
         }
 
         .camada-botoes {
@@ -193,7 +196,7 @@
         <div class="subtitulo">Central de Rastreamento e Identificação de Sobrenaturais (C.R.I.S)</div>
     </div>
 
-    <div class="container">
+    <div class="container" style="width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 15px;">
         <div class="monitor-paranormal">
             <p id="status-texto">[ ∅ ]<br><br>CONEXÃO CRIPTOGRAFADA ESTÁVEL.<br>AGUARDANDO SELEÇÃO DE ARQUIVO DA C.R.I.S</p>
             <img id="display-imagem" src="" alt="Evidência Visual">
@@ -208,122 +211,217 @@
             <div id="camada-missoes" class="camada-botoes">
                 <button class="btn-missao" onclick="abrirMissao('missao1')">📁 MISSÃO 01: O ORFANATO</button>
                 <button class="btn-missao" onclick="abrirMissao('missao2')">📁 MISSÃO 02: CARGA MORTAL</button>
-                <button class="btn-sistema" onclick="encerrarSessao()">🛑 ENCERRAMENTO (CRÉDITOS)</button>
+                <button class="btn-sistema" onclick="encerrarSessao()">ENCERRAMENTO (CRÉDITOS)</button>
             </div>
 
             <!-- ========================================== -->
             <!-- ESTRUTURA DA MISSÃO 1                      -->
             <!-- ========================================== -->
             <div id="categorias-missao1" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaMissoes()">⬅️ VOLTAR PARA MISSÕES</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m1-personagens')"> PERSONAGENS</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m1-monstros')"> MONSTROS</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m1-lugares')"> EVENTOS E LUGARES</button>
+                <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-personagens')">PERSONAGENS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-monstros')">MONSTROS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-lugares')">EVENTOS E LUGARES</button>
             </div>
 
-            <div id="m1-personagens" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaCategorias('missao1')">⬅️ VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('jennifer')">📄 Jennifer Martins</button>
-                <button class="btn-midia" onclick="carregarCena('Mariana')">📄 Mariana W. Lopes</button>
+            <!-- MENU SUB-CATEGORIAS DE PERSONAGENS (MISSÃO 1) -->
+            <div id="m1-sub-personagens" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="voltarParaCategorias('missao1')">VOLTAR</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-p-faxinal')">FAXINAL</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-p-orfanato')">ORFANATO</button>
+            </div>
+
+            <!-- PERSONAGENS: FAXINAL -->
+            <div id="m1-p-faxinal" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirSubpasta('m1-sub-personagens')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('mariana')">Mariana W. Lopes</button>
+                <button class="btn-midia" onclick="carregarCena('jorge')">Jorge Gonçalves</button>
+                <button class="btn-midia" onclick="carregarCena('jennifer-adulta')">Jennifer Martins</button>
+            </div>
+
+            <!-- PERSONAGENS: ORFANATO -->
+            <div id="m1-p-orfanato" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirSubpasta('m1-sub-personagens')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('melissa')">Melissa</button>
+                <button class="btn-midia" onclick="carregarCena('meg')">Meg - A Baronesa</button>
+                <button class="btn-midia" onclick="carregarCena('diane')">Diane - A Duquesa</button>
+                <button class="btn-midia" onclick="carregarCena('elaine')">Elaine - A Condesa</button>
+                <button class="btn-midia" onclick="carregarCena('amanda')">Amanda - A pobre</button>
+                <button class="btn-midia" onclick="carregarCena('jennifer-crianca')">Jennifer - A mendiga / fracassada / imunda</button>
+                <button class="btn-midia" onclick="carregarCena('marta')">Dona Marta - A governanta</button>
+                <button class="btn-midia" onclick="carregarCena('hoffman')">Diretor Hoffman</button>
+                <button class="btn-midia" onclick="carregarCena('kimimijo')">Kimimijo</button>
+                <button class="btn-midia" onclick="carregarCena('cirilo')">Cirilo</button>
+                <button class="btn-midia" onclick="carregarCena('adriano')">Adriano</button>
+                <button class="btn-midia" onclick="carregarCena('virgilio')">Virgílio</button>
             </div>
 
             <div id="m1-monstros" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaCategorias('missao1')">⬅️ VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('degolificada')"> A Degolificada</button>
+                <button class="btn-voltar" onclick="voltarParaCategorias('missao1')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('degolificada')">A Degolificada</button>
             </div>
 
             <div id="m1-lugares" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaCategorias('missao1')">⬅️ VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('fachada-orfanato')"> Fachada do Orfanato</button>
-                <button class="btn-midia" onclick="carregarCena('sala-rituais')"> Sala do Ritual</button>
+                <button class="btn-voltar" onclick="voltarParaCategorias('missao1')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('fachada-orfanato')">Fachada do Orfanato</button>
+                <button class="btn-midia" onclick="carregarCena('sala-rituais')">Sala do Ritual</button>
             </div>
 
             <!-- ========================================== -->
             <!-- ESTRUTURA DA MISSÃO 2: CARGA MORTAL        -->
             <!-- ========================================== -->
             <div id="categorias-missao2" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaMissoes()">⬅️ VOLTAR PARA MISSÕES</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m2-personagens')">👥 PERSONAGENS</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m2-monstros')">💀 MONSTROS</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m2-lugares')">👁️ EVENTOS E LUGARES</button>
+                <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-personagens')">PERSONAGENS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-monstros')">MONSTROS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-lugares')">EVENTOS E LUGARES</button>
             </div>
 
             <div id="m2-personagens" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">⬅️ VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('m2-npc1')">📄 Suspeito 01</button>
-                <button class="btn-midia" onclick="carregarCena('m2-npc2')">📄 Contato da Ordem</button>
+                <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('m2-npc1')">Suspeito 01</button>
+                <button class="btn-midia" onclick="carregarCena('m2-npc2')">Contato da Ordem</button>
             </div>
 
             <div id="m2-monstros" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">⬅️ VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('m2-criatura')">⚠️ Ameaça Paranormal</button>
+                <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('m2-criatura')">Ameaça Paranormal</button>
             </div>
 
             <div id="m2-lugares" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">⬅️ VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('m2-local1')">📍 Local da Carga</button>
+                <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('m2-local1')">Local da Carga</button>
             </div>
 
         </div>
     </div>
 
     <script>
-        // BANCO DE DADOS DE MÍDIAS
+        // BANCO DE DADOS DE MÍDIAS (C.R.I.S)
         const dadosCenas = {
-            // --- MISSÃO 1 ---
-            jennifer: {
+            // --- MISSÃO 1: PERSONAGENS - FAXINAL ---
+            mariana: {
                 tipo: 'imagem',
-                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747210682302504/Jennifer_adulta.png?ex=6a22ea41&is=6a2198c1&hm=07f6aa1cbeec35f8f4a468bf9473bff89b227faeb4fb6260e7c93c7d07e0810d&=&format=webp&quality=lossless&width=432&height=648', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' 
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747041853182117/Clara.png?ex=6a22ea19&is=6a219899&hm=02be6edeac2bc0c60567b3bcc9606968ed364cc1d7eb0f6a01c3c72fecff8d61&=&format=webp&quality=lossless&width=432&height=648',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
             },
-            kian: {
+            jorge: {
                 tipo: 'imagem',
-                visual: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' 
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407746692480237700/Jorge_G..png?ex=6a22e9c6&is=6a219846&hm=715811825dabe71bd79b22aa914bd68e565e3b7eafe23e910f780a8e986b788e&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'
             },
+            'jennifer-adulta': {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747210682302504/Jennifer_adulta.png?ex=6a22ea41&is=6a2198c1&hm=07f6aa1cbeec35f8f4a468bf9473bff89b227faeb4fb6260e7c93c7d07e0810d&=&format=webp&quality=lossless&width=432&height=648',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+            },
+
+            // --- MISSÃO 1: PERSONAGENS - ORFANATO ---
+            melissa: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1408154785063895151/Melissa.jpg?ex=6a226b97&is=6a211a17&hm=cddff3018e2cdb61393b610a92be897dc31c8f37062f4304e04eb808a3b2821f&=&format=webp&width=633&height=648',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            meg: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410071427662741534/Isabella.png?ex=6a22cd1a&is=6a217b9a&hm=d229a348ed96a0c8a4fe8d7278e4ed7284310b1002ab45b2dc77ef0df909de85&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            diane: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410071633506336869/Diana.png?ex=6a22cd4b&is=6a217bcb&hm=142639886873232459c7ff32fb83b2d9f600d5388558bf96816a64e2e8ea106c&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            elaine: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410071732513144863/Elaine.png?ex=6a22cd62&is=6a217be2&hm=22f363cdccb7330d66c3b820b114c16bfa1a37af3b812b4075fbb06ad87ac796&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            amanda: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410074356339441725/Amanda.jpg.png?ex=6a22cfd4&is=6a217e54&hm=98f505f1fc00938844e4f3e370083aca178b68b96b3c5480e8690dc61af5219b&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            'jennifer-crianca': {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410071883533127710/Jennifer_crianca.png?ex=6a22cd86&is=6a217c06&hm=7809973e27edcb4daca5518fbd5edf51d39d14595ee6fff83e8e4319ffb2f8b4&=&format=webp&quality=lossless&width=432&height=648',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            marta: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410077487609806939/Dona_Marta.png?ex=6a22d2bf&is=6a21813f&hm=b3ce6397f877fb53e3f6d1110af140f25e096b1b440c96ac4e5d33431b31f5a9&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            hoffman: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410077959837978757/Sr._Hoffman.png?ex=6a22d32f&is=6a2181af&hm=fc8dbfe72d6e40e15e4f70559ef1568cbcc281a5170cd8a2cf55e3d275af613a&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            kimimijo: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410081958590939189/Kimimijo.png?ex=6a22d6e8&is=6a218568&hm=d7b5a678eb23103315e8ec122e1582624a369f528a4bccbdb1ce1565fd2651fe&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            cirilo: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410082038274330625/Cirilo.png?ex=6a22d6fb&is=6a21857b&hm=f719b7b7b05943822308cab9c236d740260d6048c65d7f00d1fd9c43106f8f95&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            adriano: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410082090048819241/Adriano.png?ex=6a22d708&is=6a218588&hm=d593483aedb1fd1c828a416a746d9735fb19f3a239094a947fe3e6e14b68876e&=&format=webp&quality=lossless',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+            virgilio: {
+                tipo: 'imagem',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1417676087613325473/Virgilo.jpeg?ex=6a22c7fe&is=6a21767e&hm=84c4d1c8bbf39537a344aa2fd4d56f7866afdda947332e097ba8db761cf5f15e&=&format=webp&width=413&height=648',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
+            },
+
+            // --- MISSÃO 1: OUTROS ---
             degolificada: {
                 tipo: 'video',
-                visual: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41763-large.mp4', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' 
+                visual: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41763-large.mp4',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'
             },
             'fachada-orfanato': {
                 tipo: 'imagem',
-                visual: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' 
+                visual: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
             },
             'sala-rituais': {
                 tipo: 'video',
-                visual: 'https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-the-dark-41484-large.mp4', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' 
+                visual: 'https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-the-dark-41484-large.mp4',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
             },
 
             // --- MISSÃO 2 ---
             'm2-npc1': {
                 tipo: 'imagem',
-                visual: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' 
+                visual: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3'
             },
             'm2-npc2': {
                 tipo: 'imagem',
-                visual: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3' 
+                visual: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3'
             },
             'm2-criatura': {
                 tipo: 'video',
-                visual: 'https://assets.mixkit.co/videos/preview/mixkit-smoke-and-lights-background-41762-large.mp4', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3' 
+                visual: 'https://assets.mixkit.co/videos/preview/mixkit-smoke-and-lights-background-41762-large.mp4',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3'
             },
             'm2-local1': {
                 tipo: 'imagem',
-                visual: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3' 
+                visual: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3'
             },
 
             // --- CRÉDITOS ---
             creditos: {
                 tipo: 'imagem',
-                visual: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=1200', 
-                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3' 
+                visual: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=1200',
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3'
             }
         };
 

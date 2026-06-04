@@ -61,7 +61,7 @@
             box-shadow: inset 0 0 50px rgba(0,0,0,1);
         }
 
-        .monitor-paranormal img, .monitor-paranormal video, .monitor-paranormal iframe {
+        .monitor-paranormal img, .monitor-paranormal video {
             max-width: 100%;
             max-height: 100%;
             width: auto;
@@ -69,7 +69,6 @@
             object-fit: contain;
             display: none;
             z-index: 1;
-            border: none;
         }
 
         #status-texto {
@@ -157,7 +156,6 @@
             <p id="status-texto">[ ∅ ]<br><br>CONEXÃO CRIPTOGRAFADA ESTÁVEL.<br>AGUARDANDO SELEÇÃO DE ARQUIVO DA C.R.I.S</p>
             <img id="display-imagem" src="" alt="Evidência Visual">
             <video id="display-video" src="" loop muted playsinline></video>
-            <iframe id="display-youtube" width="0" height="0" allow="autoplay"></iframe>
         </div>
 
         <audio id="audio-player" loop></audio>
@@ -169,6 +167,7 @@
                 <button class="btn-sistema" onclick="encerrarSessao()">ENCERRAMENTO (CRÉDITOS)</button>
             </div>
 
+            <!-- CAMADAS DE MISSÕES -->
             <div id="categorias-missao1" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-personagens')">PERSONAGENS</button>
@@ -188,11 +187,11 @@
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747041853182117/Clara.png?ex=6a22ea19&is=6a219899&hm=02be6edeac2bc0c60567b3bcc9606968ed364cc1d7eb0f6a01c3c72fecff8d61&=&format=webp',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
             },
-            // CAMPO DE ENCERRAMENTO ATUALIZADO
+            // SEÇÃO DO ENCERRAMENTO AJUSTADA COM O NOME EXATO DO SEU ARQUIVO DO GITHUB
             creditos: {
                 tipo: 'imagem',
                 visual: 'https://media.discordapp.net/attachments/1511938057086046348/1512157921553940590/encerramento.jpg?ex=6a23124f&is=6a21c0cf&hm=9f12de67f411e6b8d6e2ad2657dc6812390f71fdabd16a9ef74e30769d0cc445&=&format=webp',
-                audio_yt: '5FOx2T-PGxU' // ID da música "Créditos" do Saint Juvi
+                audio: 'créditos.mp3.mp3' 
             }
         };
 
@@ -202,14 +201,12 @@
 
             const img = document.getElementById('display-imagem');
             const video = document.getElementById('display-video');
-            const yt = document.getElementById('display-youtube');
             const audio = document.getElementById('audio-player');
             const status = document.getElementById('status-texto');
 
             status.style.display = 'none';
             img.style.display = 'none';
             video.style.display = 'none';
-            yt.src = ""; // Limpa o player do YouTube ao trocar de cena
 
             if(cena.tipo === 'imagem') {
                 img.src = cena.visual;
@@ -220,13 +217,9 @@
                 video.play();
             }
 
-            // Lógica para Áudio Comum ou YouTube
-            if(cena.audio_yt) {
-                audio.pause();
-                yt.src = `https://www.youtube.com/embed/${cena.audio_yt}?autoplay=1&loop=1&playlist=${cena.audio_yt}`;
-            } else if(cena.audio) {
-                audio.src = cena.audio;
-                audio.play().catch(e => console.log("Áudio bloqueado pelo navegador. Interaja com a página primeiro."));
+            if(cena.audio) {
+                audio.src = encodeURIComponent(cena.audio); // Codifica para aceitar o acento do arquivo no GitHub
+                audio.play().catch(e => console.log("Áudio aguardando interação inicial."));
             }
         }
 
@@ -241,7 +234,6 @@
             status.style.zIndex = "10";
         }
 
-        // Funções de Navegação (simplificadas)
         function ocultarTodosOsPaineis() {
             document.querySelectorAll('.camada-botoes').forEach(p => p.classList.add('escondido'));
         }

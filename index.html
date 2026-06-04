@@ -7,7 +7,11 @@
     <style>
         /* ESTÉTICA FIEL AO LOGOTIPO ORIGINAL */
         body {
-            background-color: #050505;
+            background-image: url('https://media.discordapp.net/attachments/1511938057086046348/1512218876350562314/fundo.jpg?ex=6a234b13&is=6a21f993&hm=4cc0770e5b8eff00a3ef4029a3ef71fb355bd4b24eb5098074e8a2243af68354&=&format=webp&width=997&height=544');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
             color: #e2e2e6;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
@@ -25,6 +29,8 @@
             padding-bottom: 20px;
             width: 100%;
             max-width: 900px;
+            background-color: rgba(5, 5, 5, 0.7);
+            border-radius: 4px;
         }
 
         h1 {
@@ -71,6 +77,10 @@
             z-index: 1;
         }
 
+        .monitor-paranormal img {
+            cursor: zoom-in;
+        }
+
         #status-texto {
             color: #8a8a93;
             font-size: 14px;
@@ -81,9 +91,64 @@
             padding: 20px;
         }
 
+        /* BOTÃO DE CONTROLE DE ÁUDIO NO MONITOR */
+        .controle-audio-monitor {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            z-index: 15;
+            background-color: rgba(10, 10, 14, 0.85);
+            color: #ff3333;
+            border: 1px solid #ff3333;
+            padding: 8px 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+            display: none;
+        }
+
+        .controle-audio-monitor:hover {
+            background-color: #ff3333;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.5);
+        }
+
+        /* SISTEMA DE TELA CHEIA (MODAL) */
+        .modal-tela-cheia {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(5, 5, 5, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .modal-conteudo {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            animation: suavizarEntrada 0.2s ease-out;
+        }
+
+        @keyframes suavizarEntrada {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         /* PAINEL DE NAVEGAÇÃO */
         .painel-navegacao {
-            background-color: #0d0d11;
+            background-color: rgba(13, 13, 17, 0.9); 
             border: 1px solid #1a1a22;
             padding: 15px;
             display: flex;
@@ -124,9 +189,17 @@
             border-color: #55555d;
         }
 
+        /* TIPOS DE BOTÕES COORDENADOS POR CORES */
+        .btn-menu-principal {
+            border-left: 4px solid #ffaa00;
+            font-size: 14px;
+            color: #ffffff;
+            background-color: #161410;
+        }
+
         .btn-missao {
             border-left: 4px solid #ffffff;
-            font-size: 14px;
+            font-size: 13px;
             color: #ffffff;
             background-color: #141416;
         }
@@ -154,79 +227,140 @@
     <div class="container" style="width: 100%; max-width: 900px; display: flex; flex-direction: column; gap: 15px;">
         <div class="monitor-paranormal">
             <p id="status-texto">[ ∅ ]<br><br>CONEXÃO CRIPTOGRAFADA ESTÁVEL.<br>AGUARDANDO SELEÇÃO DE ARQUIVO DA C.R.I.S</p>
-            <img id="display-imagem" src="" alt="Evidência Visual">
+            <img id="display-imagem" src="" alt="Evidência Visual" onclick="expandirImagem()">
             <video id="display-video" src="" loop muted playsinline></video>
+            
+            <button id="btn-audio-monitor" class="controle-audio-monitor" onclick="alternarAudio()">║ PAUSE</button>
         </div>
 
         <audio id="audio-player" loop></audio>
 
         <div class="painel-navegacao">
-            <!-- CAMADA PRINCIPAL: MISSÕES -->
-            <div id="camada-missoes" class="camada-botoes">
-                <button class="btn-missao" onclick="abrirMissao('missao1')">📁 MISSÃO 01: O ORFANATO</button>
-                <button class="btn-missao" onclick="abrirMissao('missao2')">📁 MISSÃO 02: CARGA MORTAL</button>
+            <div id="camada-principal" class="camada-botoes">
+                <button class="btn-menu-principal" onclick="irParaPainel('menu-missoes')">🗂️ BANCO DE MISSÕES</button>
+                <button class="btn-menu-principal" onclick="irParaPainel('menu-organizacoes')">🏢 ORGANIZAÇÕES</button>
+                <button class="btn-menu-principal" onclick="irParaPainel('menu-ameacas')">⚠️ ARQUIVO DE AMEAÇAS</button>
                 <button class="btn-sistema" onclick="encerrarSessao()">ENCERRAMENTO (CRÉDITOS)</button>
             </div>
 
-            <!-- MISSÃO 1: CATEGORIAS -->
+            <div id="menu-missoes" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="voltarParaRaiz()">VOLTAR AO MENU PRINCIPAL</button>
+                <button class="btn-missao" onclick="abrirMissao('missao1')">📁 MISSÃO 01: O ORFANATO</button>
+                <button class="btn-missao" onclick="abrirMissao('missao2')">📁 MISSÃO 02: CARGA MORTAL</button>
+            </div>
+
             <div id="categorias-missao1" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
+                <button class="btn-voltar" onclick="irParaPainel('menu-missoes')">VOLTAR PARA MISSÕES</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-personagens')">PERSONAGENS</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-documentos')">DOCUMENTOS</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-cenarios')">CENÁRIOS</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-ameacas')">AMEAÇAS</button>
             </div>
             
-            <!-- MISSÃO 1: SUBPASTAS -->
             <div id="m1-sub-personagens" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('mariana')">Mariana W. Lopes</button>
                 <button class="btn-midia" onclick="carregarCena('jennifer')">Jennifer</button>
                 <button class="btn-midia" onclick="carregarCena('kian')">Kian</button>
             </div>
-
             <div id="m1-sub-documentos" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('relatorio_orfanato')">Relatório do Orfanato</button>
                 <button class="btn-midia" onclick="carregarCena('registro_antigo')">Registro de Admissão</button>
             </div>
-
             <div id="m1-sub-cenarios" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('fachada_orfanato')">Fachada do Casarão</button>
                 <button class="btn-midia" onclick="carregarCena('dormitorio_escuro')">Dormitório Comum</button>
             </div>
 
-            <div id="m1-sub-ameacas" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
-                <button class="btn-midia" onclick="carregarCena('degolificada')">A Degolificada</button>
-            </div>
-
-
-            <!-- MISSÃO 2: CATEGORIAS -->
             <div id="categorias-missao2" class="camada-botoes escondido">
-                <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-arquivos')">ARQUIVOS CONFIDENCIAIS</button>
-                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-perimetro')">PERÍMETRO</button>
+                <button class="btn-voltar" onclick="irParaPainel('menu-missoes')">VOLTAR PARA MISSÕES</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-personagens')">PERSONAGENS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-documentos')">DOCUMENTOS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-cenarios')">CENÁRIOS</button>
             </div>
 
-            <!-- MISSÃO 2: SUBPASTAS -->
-            <div id="m2-sub-arquivos" class="camada-botoes escondido">
+            <div id="m2-sub-personagens" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirMissao('missao2')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_m2')">[Vazio] Adicionar Personagem</button>
+            </div>
+            <div id="m2-sub-documentos" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="abrirMissao('missao2')">VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('manifesto_carga')">Manifesto de Carga</button>
             </div>
-
-            <div id="m2-sub-perimetro" class="camada-botoes escondido">
+            <div id="m2-sub-cenarios" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="abrirMissao('missao2')">VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('galpao_abandonado')">Galpão de Triagem</button>
             </div>
+
+
+            <div id="menu-organizacoes" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="voltarParaRaiz()">VOLTAR AO MENU PRINCIPAL</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('org-ordo-realitas')">Ordo Realitas</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('org-aia')">A.I.A</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('org-valure')">Valure</button>
+            </div>
+
+            <div id="org-ordo-realitas" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('menu-organizacoes')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_org')">[Vazio] Arquivo Ordo Realitas</button>
+            </div>
+            <div id="org-aia" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('menu-organizacoes')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_org')">[Vazio] Arquivo A.I.A</button>
+            </div>
+            <div id="org-valure" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('menu-organizacoes')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_org')">[Vazio] Arquivo Valure</button>
+            </div>
+
+
+            <div id="menu-ameacas" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="voltarParaRaiz()">VOLTAR AO MENU PRINCIPAL</button>
+                <button class="btn-categoria" onclick="irParaPainel('submenu-criaturas')">Criaturas</button>
+            </div>
+
+            <div id="submenu-criaturas" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('menu-ameacas')">VOLTAR</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('ameacas-sangue')">Criaturas de Sangue</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('ameacas-morte')">Criaturas de Morte</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('ameacas-energia')">Criaturas de Energia</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('ameacas-conhecimento')">Criaturas de Conhecimento</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('ameacas-medo')">Criaturas de Medo</button>
+            </div>
+
+            <div id="ameacas-sangue" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('submenu-criaturas')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_ameaca')">[Vazio] Inserir Criatura</button>
+            </div>
+            <div id="ameacas-morte" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('submenu-criaturas')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('degolificada')">A Degolificada</button>
+            </div>
+            <div id="ameacas-energia" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('submenu-criaturas')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_ameaca')">[Vazio] Inserir Criatura</button>
+            </div>
+            <div id="ameacas-conhecimento" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('submenu-criaturas')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_ameaca')">[Vazio] Inserir Criatura</button>
+            </div>
+            <div id="ameacas-medo" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="irParaPainel('submenu-criaturas')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('placeholder_ameaca')">[Vazio] Inserir Criatura</button>
+            </div>
+
         </div>
     </div>
 
+    <div id="modal-container" class="modal-tela-cheia" onclick="fecharImagem()">
+        <img id="modal-imagem" class="modal-conteudo" src="" alt="Imagem Ampliada">
+    </div>
+
     <script>
-        // BANCO DE DADOS UNIFICADO (Contendo todos os caminhos originais e o encerramento corrigido)
+        // BANCO DE DADOS UNIFICADO
         const dadosCenas = {
-            // Missão 1 - Personagens
+            // Missão 1 - Arquivos Ativos
             mariana: {
                 tipo: 'imagem',
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747041853182117/Clara.png?ex=6a22ea19&is=6a219899&hm=02be6edeac2bc0c60567b3bcc9606968ed364cc1d7eb0f6a01c3c72fecff8d61&=&format=webp',
@@ -242,7 +376,6 @@
                 visual: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600',
                 audio: ''
             },
-            // Missão 1 - Documentos
             relatorio_orfanato: {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600',
@@ -253,7 +386,6 @@
                 visual: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=600',
                 audio: ''
             },
-            // Missão 1 - Cenários
             fachada_orfanato: {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?q=80&w=600',
@@ -264,14 +396,15 @@
                 visual: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=600',
                 audio: ''
             },
-            // Missão 1 - Ameaças
+
+            // Relocada para a Pasta de Ameaças (Criaturas de Morte)
             degolificada: {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600',
                 audio: ''
             },
 
-            // Missão 2 - Arquivos e Perímetro
+            // Missão 2 - Arquivos Ativos
             manifesto_carga: {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=600',
@@ -283,12 +416,17 @@
                 audio: ''
             },
 
-            // SEÇÃO DO ENCERRAMENTO COM O ARQUIVO LOCAL DO GITHUB
+            // Encerramento
             creditos: {
                 tipo: 'imagem',
                 visual: 'https://media.discordapp.net/attachments/1511938057086046348/1512157921553940590/encerramento.jpg?ex=6a23124f&is=6a21c0cf&hm=9f12de67f411e6b8d6e2ad2657dc6812390f71fdabd16a9ef74e30769d0cc445&=&format=webp',
                 audio: 'final.mp3' 
-            }
+            },
+
+            // Placeholders para segurança estrutural de botões novos vazios
+            placeholder_m2: { tipo: 'imagem', visual: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600', audio: '' },
+            placeholder_org: { tipo: 'imagem', visual: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600', audio: '' },
+            placeholder_ameaca: { tipo: 'imagem', visual: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?q=80&w=600', audio: '' }
         };
 
         function carregarCena(idCena) {
@@ -299,10 +437,12 @@
             const video = document.getElementById('display-video');
             const audio = document.getElementById('audio-player');
             const status = document.getElementById('status-texto');
+            const btnAudio = document.getElementById('btn-audio-monitor');
 
             status.style.display = 'none';
             img.style.display = 'none';
             video.style.display = 'none';
+            btnAudio.style.display = 'none'; 
 
             if(cena.tipo === 'imagem') {
                 img.src = cena.visual;
@@ -313,9 +453,42 @@
                 video.play();
             }
 
-            if(cena.audio) {
+            if(cena.audio && cena.audio !== '') {
                 audio.src = cena.audio;
+                btnAudio.textContent = "║ PAUSE";
+                btnAudio.style.display = 'block'; 
                 audio.play().catch(e => console.log("Áudio aguardando interação inicial."));
+            } else {
+                audio.src = ''; 
+            }
+        }
+
+        // SISTEMA DE AMPLIAÇÃO (MODAL DISCORD)
+        function expandirImagem() {
+            const imgOriginal = document.getElementById('display-imagem');
+            const modalContainer = document.getElementById('modal-container');
+            const modalImg = document.getElementById('modal-imagem');
+            
+            if(imgOriginal.src && imgOriginal.style.display !== 'none') {
+                modalImg.src = imgOriginal.src;
+                modalContainer.style.display = 'flex';
+            }
+        }
+
+        function fecharImagem() {
+            document.getElementById('modal-container').style.display = 'none';
+        }
+
+        function alternarAudio() {
+            const audio = document.getElementById('audio-player');
+            const btnAudio = document.getElementById('btn-audio-monitor');
+
+            if (audio.paused) {
+                audio.play();
+                btnAudio.textContent = "║ PAUSE";
+            } else {
+                audio.pause();
+                btnAudio.textContent = "▶ PLAY";
             }
         }
 
@@ -330,9 +503,17 @@
             status.style.zIndex = "10";
         }
 
-        // SISTEMA DE NAVEGAÇÃO ENTRE CAMADAS
+        // NAVEGAÇÃO COMPLEXA ENTRE DIRETÓRIOS E COMPARTIMENTOS
         function oclutarTodosOsPaineis() {
             document.querySelectorAll('.camada-botoes').forEach(p => p.classList.add('escondido'));
+        }
+        function voltarParaRaiz() {
+            oclutarTodosOsPaineis();
+            document.getElementById('camada-principal').classList.remove('escondido');
+        }
+        function irParaPainel(idPainel) {
+            oclutarTodosOsPaineis();
+            document.getElementById(idPainel).classList.remove('escondido');
         }
         function abrirMissao(id) { 
             oclutarTodosOsPaineis(); 
@@ -341,10 +522,6 @@
         function abrirSubpasta(id) { 
             oclutarTodosOsPaineis(); 
             document.getElementById(id).classList.remove('escondido'); 
-        }
-        function voltarParaMissoes() { 
-            oclutarTodosOsPaineis(); 
-            document.getElementById('camada-missoes').classList.remove('escondido'); 
         }
     </script>
 </body>

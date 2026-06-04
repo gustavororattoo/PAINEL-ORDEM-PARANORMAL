@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terminal Ordo Realitas - S.I.G.H.</title>
+    <title>C.R.I.S. - Central de Rastreamento e Identificação de Sobrenaturais</title>
     <style>
-        /* ESTÉTICA ORDEM PARANORMAL */
+        /* ESTÉTICA FIEL AO LOGOTIPO ORIGINAL (image_313c3e.png) */
         body {
             background-color: #050505;
             color: #e2e2e6;
@@ -21,26 +21,28 @@
         .header-container {
             text-align: center;
             margin-bottom: 25px;
-            border-bottom: 2px dashed #ff3333;
-            padding-bottom: 15px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 20px;
             width: 100%;
             max-width: 900px;
         }
 
         h1 {
-            color: #ff3333;
-            text-shadow: 0 0 8px rgba(255, 51, 51, 0.6);
-            letter-spacing: 4px;
+            color: #ffffff; /* Branco Puro igual ao logo anexado */
+            font-family: Georgia, 'Times New Roman', Times, serif; /* Fonte clássica com serifa */
+            letter-spacing: 5px;
             text-transform: uppercase;
             margin: 0;
-            font-size: 28px;
-            animation: glitch-efeito 4s infinite;
+            font-size: 32px;
+            font-weight: 400;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
         }
 
         .subtitulo {
             color: #8a8a93;
-            font-size: 12px;
-            margin-top: 5px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 11px;
+            margin-top: 8px;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -49,14 +51,14 @@
         .monitor-paranormal {
             width: 100%;
             height: 480px;
-            border: 2px solid #ff3333;
+            border: 1px solid #333;
             background-color: #000;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
             overflow: hidden;
-            box-shadow: inset 0 0 50px rgba(0,0,0,1), 0 0 20px rgba(255, 51, 51, 0.15);
+            box-shadow: inset 0 0 50px rgba(0,0,0,1);
         }
 
         .monitor-paranormal::after {
@@ -64,7 +66,7 @@
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), linear-gradient(90deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.05), rgba(255, 255, 255, 0.02));
             z-index: 2;
             background-size: 100% 4px, 6px 100%;
             pointer-events: none;
@@ -80,8 +82,8 @@
         }
 
         #status-texto {
-            color: #ff3333;
-            font-size: 15px;
+            color: #8a8a93;
+            font-size: 14px;
             text-align: center;
             z-index: 1;
             letter-spacing: 2px;
@@ -92,7 +94,7 @@
         /* PAINEL DE NAVEGAÇÃO */
         .painel-navegacao {
             background-color: #0d0d11;
-            border: 1px solid #222;
+            border: 1px solid #1a1a22;
             padding: 15px;
             display: flex;
             flex-direction: column;
@@ -112,7 +114,7 @@
         button {
             background-color: #121216;
             color: #b5b5bc;
-            border: 1px solid #3a3a42;
+            border: 1px solid #2a2a32;
             padding: 12px;
             font-family: 'Courier New', Courier, monospace;
             font-weight: bold;
@@ -126,21 +128,21 @@
         button:hover {
             background-color: #1c1c24;
             color: #fff;
-            border-color: #8a8a93;
+            border-color: #55555d;
         }
 
         /* Botões de Missão */
         .btn-missao {
-            border-left: 4px solid #ff3333;
+            border-left: 4px solid #ffffff;
             font-size: 14px;
-            color: #ff3333;
-            background-color: #161212;
+            color: #ffffff;
+            background-color: #141416;
         }
         .btn-missao:hover {
-            background-color: #261818;
-            border-color: #ff5555;
-            color: #ff5555;
-            box-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+            background-color: #222226;
+            border-color: #ffffff;
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
         /* Botões de Categorias */
@@ -156,14 +158,18 @@
             font-size: 12px;
         }
         .btn-midia:hover {
-            border-left-color: #ff3333;
-            background-color: #1a1515;
+            border-left-color: #ffffff;
+            background-color: #1a1a22;
         }
 
         .btn-voltar {
-            border: 1px dashed #ff3333;
-            color: #ff3333;
+            border: 1px dashed #555;
+            color: #8a8a93;
             text-align: center;
+        }
+        .btn-voltar:hover {
+            color: #fff;
+            border-color: #fff;
         }
 
         .btn-sistema {
@@ -178,25 +184,18 @@
             color: #000;
             box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
         }
-
-        @keyframes glitch-efeito {
-            0%, 95%, 100% { text-shadow: 0 0 8px rgba(255, 51, 51, 0.6); transform: skew(0); }
-            96% { text-shadow: 3px 0 #00ff66, -3px 0 #ff3333; transform: skew(-2deg); }
-            97% { text-shadow: -2px 0 #00ff66, 2px 0 #ff3333; transform: skew(3deg); }
-            98% { text-shadow: 2px 0 #00ff66, -2px 0 #ff3333; transform: skew(-1deg); }
-        }
     </style>
 </head>
 <body>
 
     <div class="header-container">
-        <h1>ORDO REALITAS</h1>
-        <div class="subtitulo">Sistema Informatizado de Gestão de Histórico (S.I.G.H.)</div>
+        <h1>ORDEM PARANORMAL</h1>
+        <div class="subtitulo">Central de Rastreamento e Identificação de Sobrenaturais (C.R.I.S.)</div>
     </div>
 
     <div class="container">
         <div class="monitor-paranormal">
-            <p id="status-texto">[ ∅ ]<br><br>SINAL DA MEMBRANA ESTÁVEL.<br>AGUARDANDO COORDENADAS DO DIRETOR.</p>
+            <p id="status-texto">[ ∅ ]<br><br>CONEXÃO CRIPTOGRAFADA ESTÁVEL.<br>AGUARDANDO SELEÇÃO DE ARQUIVO DA C.R.I.S.</p>
             <img id="display-imagem" src="" alt="Evidência Visual">
             <video id="display-video" src="" loop muted playsinline></video>
         </div>
@@ -249,21 +248,17 @@
                 <button class="btn-categoria" onclick="abrirSubpasta('m2-lugares')">👁️ EVENTOS E LUGARES</button>
             </div>
 
-            <!-- Subpasta Personagens (Missão 2) -->
             <div id="m2-personagens" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">⬅️ VOLTAR</button>
-                <!-- Exemplos de botões para você alterar depois -->
                 <button class="btn-midia" onclick="carregarCena('m2-npc1')">📄 Suspeito 01</button>
                 <button class="btn-midia" onclick="carregarCena('m2-npc2')">📄 Contato da Ordem</button>
             </div>
 
-            <!-- Subpasta Monstros (Missão 2) -->
             <div id="m2-monstros" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">⬅️ VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('m2-criatura')">⚠️ Ameaça Paranormal</button>
             </div>
 
-            <!-- Subpasta Lugares/Eventos (Missão 2) -->
             <div id="m2-lugares" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaCategorias('missao2')">⬅️ VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('m2-local1')">📍 Local da Carga</button>
@@ -275,7 +270,7 @@
     <script>
         // BANCO DE DADOS DE MÍDIAS
         const dadosCenas = {
-            // --- MISSÃO 1: ARQUIVOS ---
+            // --- MISSÃO 1 ---
             jennifer: {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800', 
@@ -302,7 +297,7 @@
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' 
             },
 
-            // --- MISSÃO 2: ARQUIVOS (Altere os links e IDs como preferir!) ---
+            // --- MISSÃO 2 ---
             'm2-npc1': {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800', 
@@ -366,7 +361,7 @@
             }
         }
 
-        // SINCRO DE MÍDIA
+        // CONTROLADOR DE MÍDIA
         function carregarCena(idCena) {
             const cena = dadosCenas[idCena];
             if (!cena) return;
@@ -398,9 +393,9 @@
         function encerrarSessao() {
             carregarCena('creditos');
             const status = document.getElementById('status-texto');
-            status.innerHTML = "[ TRANSMISSÃO ENCERRADA PELO DIRETOR ]<br><br>Obrigado por jogarem hoje.<br>A Ordem aguarda vocês para o próximo caso.<br><br><i>O Medo é a única constante...</i>";
+            status.innerHTML = "[ CONEXÃO ENCERRADA PELA CENTRAL C.R.I.S. ]<br><br>Sessão concluída com sucesso.<br>Obrigado por jogarem hoje.<br><br><i>O Medo é a única constante...</i>";
             status.style.display = 'block';
-            status.style.color = '#ff3333';
+            status.style.color = '#ffffff';
             status.style.position = 'absolute';
             status.style.textShadow = '2px 2px 5px #000';
         }

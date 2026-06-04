@@ -187,11 +187,11 @@
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747041853182117/Clara.png?ex=6a22ea19&is=6a219899&hm=02be6edeac2bc0c60567b3bcc9606968ed364cc1d7eb0f6a01c3c72fecff8d61&=&format=webp',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
             },
-            // SEÇÃO DO ENCERRAMENTO AJUSTADA COM O NOME EXATO DO SEU ARQUIVO DO GITHUB
+            // CONFIGURADO COM O NOME LIMPO DO SEU ARQUIVO DE ÁUDIO NO GITHUB
             creditos: {
                 tipo: 'imagem',
-                visual: 'https://media.discordapp.net/attachments/1511938057086046348/1512157921553940590/encerramento.jpg?ex=6a23124f&is=6a21c0cf&hm=9f12de67f411e6b8d6e2ad2657dc6812390f71fdabd16a9ef74e30769d0cc445&=&format=webp',
-                audio: 'créditos.mp3.mp3' 
+                visual: 'https://media.discordapp.net/attachments/1511938057086046348/1512157921553940590/Campanha.jpg?ex=6a23124f&is=6a21c0cf&hm=9f12de67f411e6b8d6e2ad2657dc6812390f71fdabd16a9ef74e30769d0cc445&=&format=webp',
+                audio: 'final.mp3' 
             }
         };
 
@@ -218,7 +218,7 @@
             }
 
             if(cena.audio) {
-                audio.src = encodeURIComponent(cena.audio); // Codifica para aceitar o acento do arquivo no GitHub
+                audio.src = cena.audio;
                 audio.play().catch(e => console.log("Áudio aguardando interação inicial."));
             }
         }

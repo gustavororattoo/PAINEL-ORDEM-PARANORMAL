@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C.R.I.S. - Central de Rastreamento e Identificação de Sobrenaturais</title>
     <style>
-        /* ESTÉTICA FIEL AO LOGOTIPO ORIGINAL (image_313c3e.png) */
+        /* ESTÉTICA FIEL AO LOGOTIPO ORIGINAL */
         body {
             background-color: #050505;
             color: #e2e2e6;
@@ -28,8 +28,8 @@
         }
 
         h1 {
-            color: #ffffff; /* Branco Puro igual ao logo anexado */
-            font-family: Georgia, 'Times New Roman', Times, serif; /* Fonte clássica com serifa */
+            color: #ffffff; 
+            font-family: Georgia, 'Times New Roman', Times, serif; 
             letter-spacing: 5px;
             text-transform: uppercase;
             margin: 0;
@@ -47,7 +47,7 @@
             text-transform: uppercase;
         }
 
-        /* MONITOR DE TRANSMISSÃO */
+        /* MONITOR DE TRANSMISSÃO - CORRIGIDO PARA EVITAR DISTORÇÃO */
         .monitor-paranormal {
             width: 100%;
             height: 480px;
@@ -73,10 +73,13 @@
             opacity: 0.8;
         }
 
+        /* AJUSTE AQUI: Mudado de cover para contain e adicionado max-width/max-height */
         .monitor-paranormal img, .monitor-paranormal video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             display: none;
             z-index: 1;
         }
@@ -214,9 +217,7 @@
                 <button class="btn-sistema" onclick="encerrarSessao()">ENCERRAMENTO (CRÉDITOS)</button>
             </div>
 
-            <!-- ========================================== -->
-            <!-- ESTRUTURA DA MISSÃO 1                      -->
-            <!-- ========================================== -->
+            <!-- ESTRUTURA DA MISSÃO 1 -->
             <div id="categorias-missao1" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-personagens')">PERSONAGENS</button>
@@ -267,9 +268,7 @@
                 <button class="btn-midia" onclick="carregarCena('sala-rituais')">Sala do Ritual</button>
             </div>
 
-            <!-- ========================================== -->
-            <!-- ESTRUTURA DA MISSÃO 2: CARGA MORTAL        -->
-            <!-- ========================================== -->
+            <!-- ESTRUTURA DA MISSÃO 2 -->
             <div id="categorias-missao2" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m2-personagens')">PERSONAGENS</button>
@@ -297,9 +296,8 @@
     </div>
 
     <script>
-        // BANCO DE DADOS DE MÍDIAS (C.R.I.S)
+        // BANCO DE DADOS DE MÍDIAS
         const dadosCenas = {
-            // --- MISSÃO 1: PERSONAGENS - FAXINAL ---
             mariana: {
                 tipo: 'imagem',
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747041853182117/Clara.png?ex=6a22ea19&is=6a219899&hm=02be6edeac2bc0c60567b3bcc9606968ed364cc1d7eb0f6a01c3c72fecff8d61&=&format=webp&quality=lossless&width=432&height=648',
@@ -312,11 +310,9 @@
             },
             'jennifer-adulta': {
                 tipo: 'imagem',
-                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747210682302504/Jennifer_adulta.png?ex=6a22ea41&is=6a2198c1&hm=07f6aa1cbeec35f8f4a468bf9473bff89b227faeb4fb6260e7c93c7d07e0810d&=&format=webp&quality=lossless&width=432&height=648',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747210682302504/Jennifer_adulta.png?ex=6a22ea41&is=6a2198b1&hm=07f6aa1cbeec35f8f4a468bf9473bff89b227faeb4fb6260e7c93c7d07e0810d&=&format=webp&quality=lossless&width=432&height=648',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
             },
-
-            // --- MISSÃO 1: PERSONAGENS - ORFANATO ---
             melissa: {
                 tipo: 'imagem',
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1408154785063895151/Melissa.jpg?ex=6a226b97&is=6a211a17&hm=cddff3018e2cdb61393b610a92be897dc31c8f37062f4304e04eb808a3b2821f&=&format=webp&width=633&height=648',
@@ -344,7 +340,7 @@
             },
             'jennifer-crianca': {
                 tipo: 'imagem',
-                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410071883533127710/Jennifer_crianca.png?ex=6a22cd86&is=6a217c06&hm=7809973e27edcb4daca5518fbd5edf51d39d14595ee6fff83e8e4319ffb2f8b4&=&format=webp&quality=lossless&width=432&height=648',
+                visual: 'https://media.discordapp.net/attachments/1407734679129559232/1410071883533127710/Jennifer_crianca.png?ex=6a22cd86&is=6a217c06&hm=7809973e27edcb4daca5518fbd5edf51d39d14595eefff83e8e4319ffb2f8b4&=&format=webp&quality=lossless&width=432&height=648',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
             },
             marta: {
@@ -377,8 +373,6 @@
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1417676087613325473/Virgilo.jpeg?ex=6a22c7fe&is=6a21767e&hm=84c4d1c8bbf39537a344aa2fd4d56f7866afdda947332e097ba8db761cf5f15e&=&format=webp&width=413&height=648',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'
             },
-
-            // --- MISSÃO 1: OUTROS ---
             degolificada: {
                 tipo: 'video',
                 visual: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41763-large.mp4',
@@ -394,8 +388,6 @@
                 visual: 'https://assets.mixkit.co/videos/preview/mixkit-fire-burning-in-the-dark-41484-large.mp4',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'
             },
-
-            // --- MISSÃO 2 ---
             'm2-npc1': {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800',
@@ -416,8 +408,6 @@
                 visual: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3'
             },
-
-            // --- CRÉDITOS ---
             creditos: {
                 tipo: 'imagem',
                 visual: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?w=1200',
@@ -487,7 +477,6 @@
             audio.play().catch(e => console.log("Áudio aguardando clique para iniciar."));
         }
 
-        // TELA DE CRÉDITOS
         function encerrarSessao() {
             carregarCena('creditos');
             const status = document.getElementById('status-texto');

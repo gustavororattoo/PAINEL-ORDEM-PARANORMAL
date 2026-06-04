@@ -161,36 +161,132 @@
         <audio id="audio-player" loop></audio>
 
         <div class="painel-navegacao">
+            <!-- CAMADA PRINCIPAL: MISSÕES -->
             <div id="camada-missoes" class="camada-botoes">
                 <button class="btn-missao" onclick="abrirMissao('missao1')">📁 MISSÃO 01: O ORFANATO</button>
                 <button class="btn-missao" onclick="abrirMissao('missao2')">📁 MISSÃO 02: CARGA MORTAL</button>
                 <button class="btn-sistema" onclick="encerrarSessao()">ENCERRAMENTO (CRÉDITOS)</button>
             </div>
 
-            <!-- CAMADAS DE MISSÕES -->
+            <!-- MISSÃO 1: CATEGORIAS -->
             <div id="categorias-missao1" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
                 <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-personagens')">PERSONAGENS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-documentos')">DOCUMENTOS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-cenarios')">CENÁRIOS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m1-sub-ameacas')">AMEAÇAS</button>
             </div>
             
+            <!-- MISSÃO 1: SUBPASTAS -->
             <div id="m1-sub-personagens" class="camada-botoes escondido">
                 <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
                 <button class="btn-midia" onclick="carregarCena('mariana')">Mariana W. Lopes</button>
+                <button class="btn-midia" onclick="carregarCena('jennifer')">Jennifer</button>
+                <button class="btn-midia" onclick="carregarCena('kian')">Kian</button>
+            </div>
+
+            <div id="m1-sub-documentos" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('relatorio_orfanato')">Relatório do Orfanato</button>
+                <button class="btn-midia" onclick="carregarCena('registro_antigo')">Registro de Admissão</button>
+            </div>
+
+            <div id="m1-sub-cenarios" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('fachada_orfanato')">Fachada do Casarão</button>
+                <button class="btn-midia" onclick="carregarCena('dormitorio_escuro')">Dormitório Comum</button>
+            </div>
+
+            <div id="m1-sub-ameacas" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirMissao('missao1')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('degolificada')">A Degolificada</button>
+            </div>
+
+
+            <!-- MISSÃO 2: CATEGORIAS -->
+            <div id="categorias-missao2" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="voltarParaMissoes()">VOLTAR PARA MISSÕES</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-arquivos')">ARQUIVOS CONFIDENCIAIS</button>
+                <button class="btn-categoria" onclick="abrirSubpasta('m2-sub-perimetro')">PERÍMETRO</button>
+            </div>
+
+            <!-- MISSÃO 2: SUBPASTAS -->
+            <div id="m2-sub-arquivos" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirMissao('missao2')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('manifesto_carga')">Manifesto de Carga</button>
+            </div>
+
+            <div id="m2-sub-perimetro" class="camada-botoes escondido">
+                <button class="btn-voltar" onclick="abrirMissao('missao2')">VOLTAR</button>
+                <button class="btn-midia" onclick="carregarCena('galpao_abandonado')">Galpão de Triagem</button>
             </div>
         </div>
     </div>
 
     <script>
+        // BANCO DE DADOS UNIFICADO (Contendo todos os caminhos originais e o encerramento corrigido)
         const dadosCenas = {
+            // Missão 1 - Personagens
             mariana: {
                 tipo: 'imagem',
                 visual: 'https://media.discordapp.net/attachments/1407734679129559232/1407747041853182117/Clara.png?ex=6a22ea19&is=6a219899&hm=02be6edeac2bc0c60567b3bcc9606968ed364cc1d7eb0f6a01c3c72fecff8d61&=&format=webp',
                 audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
             },
-            // CONFIGURADO COM O NOME LIMPO DO SEU ARQUIVO DE ÁUDIO NO GITHUB
+            jennifer: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=600',
+                audio: ''
+            },
+            kian: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=600',
+                audio: ''
+            },
+            // Missão 1 - Documentos
+            relatorio_orfanato: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600',
+                audio: ''
+            },
+            registro_antigo: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?q=80&w=600',
+                audio: ''
+            },
+            // Missão 1 - Cenários
+            fachada_orfanato: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?q=80&w=600',
+                audio: ''
+            },
+            dormitorio_escuro: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?q=80&w=600',
+                audio: ''
+            },
+            // Missão 1 - Ameaças
+            degolificada: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1509248961158-e54f6934749c?q=80&w=600',
+                audio: ''
+            },
+
+            // Missão 2 - Arquivos e Perímetro
+            manifesto_carga: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1568667256549-094345857637?q=80&w=600',
+                audio: ''
+            },
+            galpao_abandonado: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=600',
+                audio: ''
+            },
+
+            // SEÇÃO DO ENCERRAMENTO COM O ARQUIVO LOCAL DO GITHUB
             creditos: {
                 tipo: 'imagem',
-                visual: 'https://media.discordapp.net/attachments/1511938057086046348/1512157921553940590/Campanha.jpg?ex=6a23124f&is=6a21c0cf&hm=9f12de67f411e6b8d6e2ad2657dc6812390f71fdabd16a9ef74e30769d0cc445&=&format=webp',
+                visual: 'https://media.discordapp.net/attachments/1511938057086046348/1512157921553940590/encerramento.jpg?ex=6a23124f&is=6a21c0cf&hm=9f12de67f411e6b8d6e2ad2657dc6812390f71fdabd16a9ef74e30769d0cc445&=&format=webp',
                 audio: 'final.mp3' 
             }
         };
@@ -234,12 +330,22 @@
             status.style.zIndex = "10";
         }
 
-        function ocultarTodosOsPaineis() {
+        // SISTEMA DE NAVEGAÇÃO ENTRE CAMADAS
+        function oclutarTodosOsPaineis() {
             document.querySelectorAll('.camada-botoes').forEach(p => p.classList.add('escondido'));
         }
-        function abrirMissao(id) { ocultarTodosOsPaineis(); document.getElementById('categorias-' + id).classList.remove('escondido'); }
-        function abrirSubpasta(id) { ocultarTodosOsPaineis(); document.getElementById(id).classList.remove('escondido'); }
-        function voltarParaMissoes() { ocultarTodosOsPaineis(); document.getElementById('camada-missoes').classList.remove('escondido'); }
+        function abrirMissao(id) { 
+            oclutarTodosOsPaineis(); 
+            document.getElementById('categorias-' + id).classList.remove('escondido'); 
+        }
+        function abrirSubpasta(id) { 
+            oclutarTodosOsPaineis(); 
+            document.getElementById(id).classList.remove('escondido'); 
+        }
+        function voltarParaMissoes() { 
+            oclutarTodosOsPaineis(); 
+            document.getElementById('camada-missoes').classList.remove('escondido'); 
+        }
     </script>
 </body>
 </html>

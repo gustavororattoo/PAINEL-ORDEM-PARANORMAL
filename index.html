@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal de Investigação - Ordem Paranormal</title>
+    <style>
+        /* Estética Baseada na Ordem */
+        body {
+            background-color: #0a0a0c;
+            color: #d1d1d6;
+            font-family: 'Courier New', Courier, monospace; /* Tom de relatório militar/investigação */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #00ff66; /* Verde Membrana / Elementos */
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .subtitulo {
+            color: #8a8a93;
+            font-size: 14px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Container Principal */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Painel de Botões / Cenários */
+        .painel-botoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        button {
+            background-color: #121216;
+            color: #00ff66;
+            border: 1px solid #00ff66;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s ease-in-out;
+            box-shadow: inset 0 0 5px rgba(0, 255, 102, 0.1);
+        }
+
+        button:hover {
+            background-color: #00ff66;
+            color: #0a0a0c;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.4);
+            font-weight: calc(bold + 100);
+        }
+
+        /* Botão de Emergência / Parar */
+        .btn-parar {
+            border-color: #ff3333;
+            color: #ff3333;
+        }
+        .btn-parar:hover {
+            background-color: #ff3333;
+            color: #0a0a0c;
+            box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+        }
+
+        /* Área do Monitor (Onde a mágica acontece) */
+        .monitor-investigacao {
+            width: 100%;
+            height: 450px;
+            border: 2px solid #3a3a42;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 40px rgba(0,0,0,1), 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        /* Efeito de linhas de monitor antigo (CRT) */
+        .monitor-investigacao::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
+        .monitor-investigacao img, .monitor-investigacao video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        #status-texto {
+            color: #55555d;
+            font-size: 16px;
+            text-align: center;
+            z-index: 1;
+            animation: piscar 2s infinite;
+        }
+
+        @keyframes piscar {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Ordo Realitas</h1>
+    <div class="subtitulo">Terminal de Sincronização de Campo v1.0.3</div>
+
+    <div class="container">
+        <!-- Monitor Central -->
+        <div class="monitor-investigacao">
+            <p id="status-texto">[ AGUARDANDO COMANDO DO DIRETOR DE CAMPO ]</p>
+            <img id="display-imagem" src="" alt="Evidência Visual">
+            <video id="display-video" src="" loop muted playsinline></video>
+        </div>
+
+        <!-- Áudio em Background -->
+        <audio id="audio-player" loop></audio>
+
+        <!-- Painel de Arquivos/Cenas -->
+        <div class="painel-botoes">
+            <button onclick="carregarCena('delegacia')">📂 Caso 01: Delegacia</button>
+            <button onclick="carregarCena('mansao')">📂 Caso 02: Mansão Abandonada</button>
+            <button onclick="carregarCena('boss')">⚠️ Alerta: Presença Paranormal</button>
+            <button class="btn-parar" onclick="pausarTudo()">🛑 Cessar Transmissão</button>
+        </div>
+    </div>
+
+    <script>
+        // BANCO DE DADOS DO SEU RPG
+        // Importante: Quando colocar na internet, substitua os links abaixo pelos links dos seus arquivos hospedados
+        const dadosCenas = {
+            delegacia: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=800', 
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' 
+            },
+            mansao: {
+                tipo: 'imagem',
+                visual: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800', 
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' 
+            },
+            boss: {
+                tipo: 'video',
+                visual: 'https://assets.mixkit.co/videos/preview/mixkit-abstract-laser-lights-background-41763-large.mp4', 
+                audio: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' 
+            }
+        };
+
+        function carregarCena(idCena) {
+            const cena = dadosCenas[idCena];
+            if (!cena) return;
+
+            const img = document.getElementById('display-imagem');
+            const video = document.getElementById('display-video');
+            const audio = document.getElementById('audio-player');
+            const status = document.getElementById('status-texto');
+
+            status.style.display = 'none';
+
+            // Gerencia Visual
+            if(cena.tipo === 'imagem') {
+                video.style.display = 'none';
+                video.pause();
+                img.src = cena.visual;
+                img.style.display = 'block';
+            } else if (cena.tipo === 'video') {
+                img.style.display = 'none';
+                video.src = cena.visual;
+                video.style.display = 'block';
+                video.play();
+            }
+
+            // Gerencia Áudio
+            audio.src = cena.audio;
+            audio.play().catch(e => console.log("Áudio aguardando interação do usuário."));
+        }
+
+        function pausarTudo() {
+            document.getElementById('display-imagem').style.display = 'none';
+            
+            const video = document.getElementById('display-video');
+            video.style.display = 'none';
+            video.pause();
+
+            const audio = document.getElementById('audio-player');
+            audio.pause();
+
+            const status = document.getElementById('status-texto');
+            status.innerText = "[ TRANSMISSÃO INTERROMPIDA / SINAL LIMPO ]";
+            status.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
